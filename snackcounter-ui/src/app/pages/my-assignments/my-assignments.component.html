@@ -1,0 +1,153 @@
+
+<div class="page-container">
+
+  <!-- Page Header -->
+  <div class="page-header">
+    <div>
+      <h1>My Assignments</h1>
+      <p>View and manage refill requests assigned to you</p>
+    </div>
+  </div>
+
+  <!-- Assignment Cards -->
+  <div class="assignment-card" *ngFor="let refill of assignments">
+
+    <!-- Card Header -->
+    <div class="assignment-header">
+      <div>
+        <h2>Refill Request #{{ refill.id }}</h2>
+        <p>{{ refill.office === 0 ? 'Oslo' : 'Bengaluru' }} Office</p>
+      </div>
+
+      <span class="status-badge">
+        {{ getStatusName(refill.status) }}
+      </span>
+    </div>
+
+    <!-- Assignment Details -->
+    <div class="assignment-details">
+
+      <div class="detail-item">
+        <label>Refill ID</label>
+        <span>#{{ refill.id }}</span>
+      </div>
+
+      <div class="detail-item">
+        <label>Created Date</label>
+        <span>{{ refill.createdAt | date:'MMM d, y' }}</span>
+      </div>
+
+      <div class="detail-item">
+        <label>Assigned Employee</label>
+        <span>{{ refill.assignedEmployee?.name || 'You' }}</span>
+      </div>
+
+    </div>
+
+    <!-- Accept and Decline Actions -->
+    <div class="assignment-actions" *ngIf="refill.status === 1">
+
+      <button
+        type="button"
+        class="decline-button"
+        (click)="declineAssignment(refill.id)">
+        Decline
+      </button>
+
+      <button
+        type="button"
+        class="accept-button"
+        (click)="acceptRefill(refill.id)">
+        Accept
+      </button>
+
+    </div>
+
+    <!-- Purchase Action (only after accepting) -->
+    <div class="purchase-action" *ngIf="refill.status === 2">
+
+      <button
+        type="button"
+        class="btn-purchase"
+        (click)="showPurchaseForm(refill.id)">
+        Record Purchase
+      </button>
+
+    </div>
+
+  </div>
+
+  <!-- Empty State -->
+  <div class="empty-state" *ngIf="assignments.length === 0">
+    <h3>No assignments available</h3>
+    <p>New refill requests assigned to you will appear here.</p>
+  </div>
+
+  <!-- Purchase Form -->
+  <div class="purchase-form-card" *ngIf="isPurchaseFormVisible">
+
+    <h2>Record Snack Purchase</h2>
+    <p>Enter the details of the snacks purchased for this refill.</p>
+
+    <!-- Amount -->
+    <div class="form-group">
+      <label for="purchaseAmount">Purchase Amount</label>
+
+      <input
+        id="purchaseAmount"
+        type="number"
+        min="1"
+        [(ngModel)]="purchaseData.amount"
+        name="amount"
+        placeholder="Enter purchase amount"
+      />
+    </div>
+
+    <!-- Description -->
+    <div class="form-group">
+      <label for="purchaseDescription">Purchase Description</label>
+
+      <input
+        id="purchaseDescription"
+        type="text"
+        [(ngModel)]="purchaseData.description"
+        name="description"
+        placeholder="Example: Chips, biscuits, juice"
+      />
+    </div>
+
+    <!-- Receipt Path -->
+    <div class="form-group">
+      <label for="receiptPath">Receipt Path</label>
+
+      <input
+        id="receiptPath"
+        type="text"
+        [(ngModel)]="purchaseData.receiptPath"
+        name="receiptPath"
+        placeholder="Enter receipt path (optional)"
+      />
+    </div>
+
+    <!-- Form Actions -->
+    <div class="form-actions">
+
+      <button
+        type="button"
+        class="btn-purchase"
+        (click)="submitPurchase()">
+        Submit Purchase
+      </button>
+
+      <button
+        type="button"
+        class="decline-button"
+        (click)="cancelPurchase()">
+        Cancel
+      </button>
+
+    </div>
+
+  </div>
+
+</div>

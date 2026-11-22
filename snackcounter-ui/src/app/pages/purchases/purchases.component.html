@@ -1,0 +1,91 @@
+<div class="page-container">
+
+  <div class="page-header">
+    <div>
+      <h1>Purchases</h1>
+      <p>Track snack purchases and reimbursement status</p>
+    </div>
+
+    <button class="refresh-button" (click)="loadPurchases()">
+      ↻ Refresh
+    </button>
+  </div>
+
+  <!-- Summary -->
+  <div class="summary-card">
+    <div class="summary-icon">🛒</div>
+
+    <div>
+      <h3>{{ purchases.length }}</h3>
+      <p>Purchase Records</p>
+    </div>
+  </div>
+
+  <!-- Loading -->
+  <div class="loading-state" *ngIf="loading">
+    <p>Loading purchase records...</p>
+  </div>
+
+  <!-- Purchase List -->
+  <div class="purchase-list" *ngIf="!loading && purchases.length > 0">
+
+    <div class="purchase-card" *ngFor="let purchase of purchases">
+
+      <div class="purchase-header">
+
+        <div>
+          <h2>Refill Request #{{ purchase.id }}</h2>
+
+          <p class="office-name">
+            {{ getOfficeName(purchase.office) }} Office
+          </p>
+        </div>
+
+        <span
+          class="status-badge"
+          [ngClass]="purchase.status === 5 ? 'completed' : 'pending'">
+
+          {{ getStatusName(purchase.status) }}
+
+        </span>
+
+      </div>
+
+      <div class="purchase-details">
+
+        <div class="detail-item">
+          <label>REFILL ID</label>
+          <span>#{{ purchase.id }}</span>
+        </div>
+
+        <div class="detail-item">
+          <label>CREATED DATE</label>
+          <span>{{ purchase.createdAt | date:'MMM d, y' }}</span>
+        </div>
+
+        <div class="detail-item">
+          <label>OFFICE</label>
+          <span>{{ getOfficeName(purchase.office) }}</span>
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- Empty State -->
+  <div class="empty-state" *ngIf="!loading && purchases.length === 0">
+
+    <div class="empty-icon">🛒</div>
+
+    <h3>No purchases yet</h3>
+
+    <p>
+      Purchase and reimbursement records will appear here
+      once refill requests reach the purchase stage.
+    </p>
+
+  </div>
+
+</div>

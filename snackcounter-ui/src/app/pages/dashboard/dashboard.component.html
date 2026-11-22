@@ -1,0 +1,152 @@
+<div class="dashboard-container">
+
+  <!-- HEADER -->
+  <div class="dashboard-header">
+    <div>
+      <h1>Dashboard</h1>
+      <p>Overview of office snack management</p>
+    </div>
+
+    <button class="refresh-button" (click)="loadDashboard()">
+      ↻ Refresh
+    </button>
+  </div>
+
+  <!-- LOADING -->
+  <div *ngIf="loading" class="loading-state">
+    Loading dashboard...
+  </div>
+
+  <!-- ERROR -->
+  <div *ngIf="!loading && errorMessage" class="error-state">
+    {{ errorMessage }}
+  </div>
+
+  <div *ngIf="!loading && !errorMessage">
+
+    <!-- STATISTICS CARDS -->
+    <div class="stats-grid">
+
+      <div class="stat-card">
+        <div class="stat-icon purple">📦</div>
+        <div>
+          <p>Total Refills</p>
+          <h2>{{ getTotalRefills() }}</h2>
+        </div>
+      </div>
+
+      <div class="stat-card">
+        <div class="stat-icon orange">⏳</div>
+        <div>
+          <p>Open Requests</p>
+          <h2>{{ getOpenRefills() }}</h2>
+        </div>
+      </div>
+
+      <div class="stat-card">
+        <div class="stat-icon blue">👥</div>
+        <div>
+          <p>Assigned Requests</p>
+          <h2>{{ getAssignedRefills() }}</h2>
+        </div>
+      </div>
+
+      <div class="stat-card">
+        <div class="stat-icon green">✅</div>
+        <div>
+          <p>Completed</p>
+          <h2>{{ getCompletedRefills() }}</h2>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- OFFICE OVERVIEW -->
+    <div class="section-title">
+      <h2>Office Overview</h2>
+      <p>Refill activity across both offices</p>
+    </div>
+
+    <div class="office-grid">
+
+      <!-- OSLO -->
+      <div class="office-card">
+        <div class="office-card-header">
+          <h3>🇳🇴 Oslo Office</h3>
+          <span class="office-tag">NOK</span>
+        </div>
+
+        <div class="office-count">
+          <h2>{{ getOfficeRefills(0) }}</h2>
+          <p>Total Refill Requests</p>
+        </div>
+      </div>
+
+      <!-- BENGALURU -->
+      <div class="office-card">
+        <div class="office-card-header">
+          <h3>🇮🇳 Bengaluru Office</h3>
+          <span class="office-tag">INR</span>
+        </div>
+
+        <div class="office-count">
+          <h2>{{ getOfficeRefills(1) }}</h2>
+          <p>Total Refill Requests</p>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- RECENT REFILLS -->
+    <div class="section-title">
+      <h2>Recent Refill Requests</h2>
+      <p>Latest activity in SnackCounter</p>
+    </div>
+
+    <div class="recent-table-card">
+
+      <table *ngIf="getRecentRefills().length > 0">
+
+        <thead>
+          <tr>
+            <th>Refill ID</th>
+            <th>Office</th>
+            <th>Created Date</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr *ngFor="let refill of getRecentRefills()">
+
+            <td>#{{ refill.id }}</td>
+
+            <td>
+              {{ refill.office === 0 ? 'Oslo' : 'Bengaluru' }}
+            </td>
+
+            <td>
+              {{ refill.createdAt | date:'MMM d, y' }}
+            </td>
+
+            <td>
+              <span class="status-badge">
+                {{ getStatusName(refill.status) }}
+              </span>
+            </td>
+
+          </tr>
+        </tbody>
+
+      </table>
+
+      <div *ngIf="getRecentRefills().length === 0" class="empty-state">
+        <h3>No refill requests yet</h3>
+        <p>New refill requests will appear here.</p>
+      </div>
+
+    </div>
+
+  </div>
+
+</div>

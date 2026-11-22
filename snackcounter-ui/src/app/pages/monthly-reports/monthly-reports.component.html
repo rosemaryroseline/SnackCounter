@@ -1,0 +1,189 @@
+<div class="page-container">
+
+  <!-- HEADER -->
+  <div class="page-header">
+    <div>
+      <h1>Monthly Reports</h1>
+      <p>Monitor office snack budgets and monthly refill activity</p>
+    </div>
+
+    <div class="filter-section">
+      <select [(ngModel)]="selectedMonth">
+        <option *ngFor="let month of months" [value]="month.value">
+          {{ month.name }}
+        </option>
+      </select>
+
+      <select [(ngModel)]="selectedYear">
+        <option *ngFor="let year of years" [value]="year">
+          {{ year }}
+        </option>
+      </select>
+
+      <button class="filter-button" (click)="loadReports()">
+        View Report
+      </button>
+    </div>
+  </div>
+
+  <!-- LOADING -->
+  <div *ngIf="loading" class="loading-state">
+    Loading monthly reports...
+  </div>
+
+  <!-- ERROR -->
+  <div *ngIf="!loading && errorMessage" class="error-state">
+    {{ errorMessage }}
+  </div>
+
+  <!-- REPORT CONTENT -->
+  <div *ngIf="!loading && !errorMessage && reports.length > 0">
+
+    <!-- SUMMARY CARDS -->
+    <div class="summary-grid">
+
+      <div class="summary-card">
+        <div class="summary-icon purple">🏢</div>
+        <div class="summary-content">
+          <label>Offices</label>
+          <h2>{{ reports.length }}</h2>
+          <p>Reporting offices</p>
+        </div>
+      </div>
+
+      <div class="summary-card">
+        <div class="summary-icon blue">📦</div>
+        <div class="summary-content">
+          <label>Total Refills</label>
+          <h2>{{ getTotalRefills() }}</h2>
+          <p>Monthly refill requests</p>
+        </div>
+      </div>
+
+      <div class="summary-card">
+        <div class="summary-icon orange">🧾</div>
+        <div class="summary-content">
+          <label>Pending Reimbursements</label>
+          <h2>{{ getTotalPendingReimbursements() }}</h2>
+          <p>Awaiting reimbursement</p>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- MONTH -->
+    <div class="report-period">
+      <h2>{{ getMonthName() }} {{ selectedYear }}</h2>
+      <p>Monthly financial and refill summary</p>
+    </div>
+
+    <!-- OFFICE BUDGET OVERVIEW -->
+    <div class="section-header">
+      <h2>Office Budget Overview</h2>
+      <p>Budget utilization for each office</p>
+    </div>
+
+    <div class="office-grid">
+
+      <div class="office-card" *ngFor="let report of reports">
+
+        <!-- OFFICE HEADER -->
+        <div class="office-header">
+          <div>
+            <h3>{{ report.office }}</h3>
+            <p>Monthly Budget Overview</p>
+          </div>
+
+          <span class="office-badge">
+            {{ report.currency }}
+          </span>
+        </div>
+
+        <!-- BUDGET USAGE -->
+        <div class="budget-section">
+
+          <div class="budget-label">
+            <span>Budget Used</span>
+            <strong>
+              {{ getSpentPercentage(report) | number:'1.0-1' }}%
+            </strong>
+          </div>
+
+          <div class="progress-bar">
+            <div
+              class="progress-fill"
+              [style.width.%]="getSpentPercentage(report)">
+            </div>
+          </div>
+
+        </div>
+
+        <!-- FINANCIAL DETAILS -->
+        <div class="financial-details">
+
+          <div class="financial-item">
+            <label>Monthly Budget</label>
+            <strong>
+              {{ formatCurrency(report.monthlyBudget, report.currency) }}
+            </strong>
+          </div>
+
+          <div class="financial-item">
+            <label>Total Spent</label>
+            <strong>
+              {{ formatCurrency(report.totalSpent, report.currency) }}
+            </strong>
+          </div>
+
+          <div class="financial-item remaining">
+            <label>Remaining Budget</label>
+            <strong>
+              {{ formatCurrency(report.remainingBudget, report.currency) }}
+            </strong>
+          </div>
+
+        </div>
+
+        <!-- STATISTICS -->
+        <div class="office-statistics">
+
+          <div class="stat-box">
+            <span class="stat-number">
+              {{ report.totalRefills }}
+            </span>
+            <span class="stat-label">
+              Total Refills
+            </span>
+          </div>
+
+          <div class="stat-box">
+            <span class="stat-number">
+              {{ report.pendingReimbursements }}
+            </span>
+            <span class="stat-label">
+              Pending Reimbursements
+            </span>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- EMPTY STATE -->
+  <div
+    class="empty-state"
+    *ngIf="!loading && !errorMessage && reports.length === 0">
+
+    <div class="empty-icon">📊</div>
+
+    <h3>No reports available</h3>
+
+    <p>No report data is available for the selected month.</p>
+
+  </div>
+
+</div>

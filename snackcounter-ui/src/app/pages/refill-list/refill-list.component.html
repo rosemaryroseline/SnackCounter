@@ -1,0 +1,91 @@
+<div class="page-container">
+
+  <div class="page-header">
+    <div>
+      <h1>Refill Requests</h1>
+      <p>Manage and track office refill requests</p>
+    </div>
+
+    <button class="create-button" (click)="showForm = !showForm">
+      + Create Refill Request
+    </button>
+  </div>
+
+  <!-- Create Refill Form -->
+  <div class="form-card" *ngIf="showForm">
+
+    <h2>Create Refill Request</h2>
+
+   <div class="form-group">
+  <label>Office</label>
+  <select [(ngModel)]="newRefill.office" name="office">
+    <option [ngValue]="1">Bengaluru</option>
+    <option [ngValue]="0">Oslo</option>
+  </select>
+</div>
+    <div class="form-group">
+      <label>Employee ID</label>
+      <input
+        type="text"
+        [(ngModel)]="newRefill.createdByEmployeeId"
+        placeholder="Enter employee ID"
+      />
+    </div>
+
+    <div class="form-actions">
+      <button class="cancel-button" (click)="showForm = false">
+        Cancel
+      </button>
+
+      <button class="submit-button" (click)="createRefill()">
+        Submit Request
+      </button>
+    </div>
+
+  </div>
+
+  <!-- Refill Table -->
+  <div class="table-card">
+
+    <table>
+      <thead>
+        <tr>
+          <th>REFILL ID</th>
+          <th>OFFICE</th>
+          <th>ASSIGNED TO</th>
+          <th>CREATED DATE</th>
+          <th>STATUS</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr *ngFor="let refill of refills">
+
+          <td>#{{ refill.id }}</td>
+
+          <td>
+            {{ refill.office === 0 ? 'Oslo' : 'Bengaluru' }}
+          </td>
+
+          <td>
+            {{ refill.assignedEmployee?.name || 'Not assigned' }}
+          </td>
+
+          <td>
+            {{ refill.createdAt | date:'MMM d, y' }}
+          </td>
+
+          <td>
+            <span class="status-badge">
+              {{ getStatusName(refill.status) }}
+            </span>
+          </td>
+
+        </tr>
+      </tbody>
+
+    </table>
+
+  </div>
+
+</div>

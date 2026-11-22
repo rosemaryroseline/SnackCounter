@@ -1,0 +1,328 @@
+
+/* Main page */
+.page-container {
+  padding: 35px 40px;
+  min-height: 100vh;
+  background: #f8fafc;
+  box-sizing: border-box;
+}
+
+/* Page header */
+.page-header {
+  margin-bottom: 30px;
+}
+
+.page-header h1 {
+  font-size: 28px;
+  font-weight: 700;
+  color: #1e293b;
+  margin: 0 0 8px;
+}
+
+.page-header p {
+  color: #64748b;
+  font-size: 15px;
+  margin: 0;
+}
+
+/* Assignment card */
+.assignment-card {
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 14px;
+  padding: 25px;
+  margin-bottom: 20px;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.04);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.assignment-card:hover {
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06);
+  transform: translateY(-2px);
+}
+
+/* Assignment header */
+.assignment-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 15px;
+  margin-bottom: 25px;
+}
+
+.assignment-header h2 {
+  font-size: 20px;
+  font-weight: 600;
+  color: #1f2937;
+  margin: 0 0 7px;
+}
+
+.assignment-header p {
+  color: #64748b;
+  font-size: 14px;
+  margin: 0;
+}
+
+/* Status badge */
+.status-badge {
+  padding: 7px 14px;
+  border-radius: 20px;
+  background: #ede9fe;
+  color: #6c5ce7;
+  font-size: 12px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+/* Assignment details */
+.assignment-details {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  padding: 20px 0;
+  border-top: 1px solid #f1f5f9;
+  border-bottom: 1px solid #f1f5f9;
+}
+
+.detail-item {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.detail-item label {
+  color: #94a3b8;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+}
+
+.detail-item span {
+  color: #334155;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+/* Action buttons */
+.assignment-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 20px;
+}
+
+.accept-button,
+.decline-button {
+  padding: 10px 22px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+/* Accept */
+.accept-button {
+  background: #6c5ce7;
+  color: #ffffff;
+  border: 1px solid #6c5ce7;
+}
+
+.accept-button:hover {
+  background: #5846c8;
+}
+
+/* Decline */
+.decline-button {
+  background: #ffffff;
+  color: #dc2626;
+  border: 1px solid #fecaca;
+}
+
+.decline-button:hover {
+  background: #fef2f2;
+}
+
+/* Empty state */
+.empty-state {
+  background: #ffffff;
+  border: 1px dashed #cbd5e1;
+  border-radius: 14px;
+  padding: 50px 25px;
+  text-align: center;
+  margin-top: 25px;
+}
+
+.empty-state h3 {
+  color: #334155;
+  font-size: 18px;
+  margin: 0 0 10px;
+}
+
+.empty-state p {
+  color: #94a3b8;
+  font-size: 14px;
+  margin: 0;
+}
+
+
+/* ===== Record Purchase Button ===== */
+.purchase-action {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 20px;
+}
+
+.btn-purchase {
+  padding: 11px 22px;
+  border-radius: 8px;
+  background: #6c5ce7;
+  color: #ffffff;
+  border: 1px solid #6c5ce7;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.btn-purchase:hover {
+  background: #5846c8;
+}
+
+/* ===== Purchase Form Card ===== */
+.purchase-form-card {
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 16px;
+  padding: 30px;
+  margin-top: 30px;
+  max-width: 850px;
+  box-shadow: 0 5px 18px rgba(0, 0, 0, 0.04);
+}
+
+.purchase-form-card h2 {
+  font-size: 24px;
+  font-weight: 700;
+  color: #1e293b;
+  margin: 0 0 10px;
+}
+
+.purchase-form-card > p {
+  color: #64748b;
+  font-size: 15px;
+  margin-bottom: 28px;
+}
+
+/* ===== Form Groups ===== */
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 22px;
+}
+
+.form-group label {
+  color: #334155;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.form-group input {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 13px 15px;
+  border: 1px solid #dfe3ee;
+  border-radius: 9px;
+  background: #f9fafb;
+  font-size: 14px;
+  color: #334155;
+  outline: none;
+  transition: 0.2s ease;
+}
+
+.form-group input:focus {
+  border-color: #6c5ce7;
+  background: #ffffff;
+  box-shadow: 0 0 0 3px rgba(108, 92, 231, 0.1);
+}
+
+.form-group input::placeholder {
+  color: #9ca3af;
+}
+
+/* ===== Form Actions ===== */
+.form-actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 25px;
+  flex-wrap: wrap;
+}
+
+.form-actions button {
+  padding: 12px 22px;
+  border-radius: 9px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.form-actions .btn-purchase {
+  background: #6c5ce7;
+  color: #ffffff;
+  border: 1px solid #6c5ce7;
+}
+
+.form-actions .btn-purchase:hover {
+  background: #5846c8;
+}
+
+.form-actions .decline-button {
+  background: #ffffff;
+  color: #dc2626;
+  border: 1px solid #fecaca;
+}
+
+.form-actions .decline-button:hover {
+  background: #fef2f2;
+}
+
+/* ===== Responsive Purchase Form ===== */
+@media (max-width: 768px) {
+  .purchase-form-card {
+    padding: 20px;
+  }
+
+  .form-actions {
+    flex-direction: column;
+  }
+
+  .form-actions button {
+    width: 100%;
+  }
+}
+/* Responsive design */
+@media (max-width: 768px) {
+  .page-container {
+    padding: 20px;
+  }
+
+  .assignment-details {
+    grid-template-columns: 1fr;
+    gap: 15px;
+  }
+
+  .assignment-header {
+    flex-direction: column;
+  }
+
+  .assignment-actions {
+    flex-direction: column-reverse;
+  }
+
+  .accept-button,
+  .decline-button {
+    width: 100%;
+  }
+}
