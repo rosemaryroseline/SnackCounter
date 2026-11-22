@@ -1,0 +1,6 @@
+@SnackCounter_HostAddress = http://localhost:5222
+
+GET {{SnackCounter_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
